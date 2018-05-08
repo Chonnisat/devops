@@ -5,4 +5,9 @@ node {
     stage("check version"){
         sh "docker --version"
     }
+    stage("build image"){
+        steps {
+            sh "docker build -t hello-nginx ."
+        }
+    }
 }
