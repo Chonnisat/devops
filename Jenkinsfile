@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy'){
             steps {
                 sshagent(['uat-server']) {
-                    sh "ssh -o StrictHostKeyChecking=no,IdentitiesOnly=yes core@167.99.237.229 docker pull ${env.imageName}"
+                    sh "ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=yes core@167.99.237.229 docker pull ${env.imageName}"
                 }
             }
         }
