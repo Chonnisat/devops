@@ -22,7 +22,7 @@ pipeline {
         }
         stage("push image") {
             steps {
-                sh "docker login -u tiewwa_haha@hotmail.com -p 17428yBR"
+                sh "docker login -u nootiew -p 17428yBR"
                 sh "docker push ${env.imageName}"
             }
         }
