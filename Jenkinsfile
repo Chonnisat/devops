@@ -15,26 +15,26 @@ pipeline {
             }
         }
 
-        // stage("deploy") {
-        //     steps{
-        //         sshagent(['uat-server']){
-        //             sh "echo XXXXX"
-        //         }
-        //     }
-        // }
-
-        stage("push image") {
-            steps {
-                script{
-                    docker.withRegistry('https://docker.io', 'dockerhub-id'){
-                        def image = docker.build("${env.imageName}:1.${env.BUILD_NUMBER}")
-                        image.push();
-                        // sh "docker build -t ${env.imageName}:1.${env.BUILD_NUMBER} ."
-                        // sh "docker tag ${env.imageName} ${env.imageName}:1.${env.BUILD_NUMBER}"
-                        // sh "docker push ${env.imageName}"
-                    }
+        stage("deploy") {
+            steps{
+                sshagent(['uat-server']){
+                    sh "ssh root@167.99.237.229 docker pull ${env.imageName}"
                 }
             }
         }
+
+        // stage("push image") {
+        //     steps {
+        //         script{
+        //             docker.withRegistry('https://docker.io', 'dockerhub-id'){cker.build("${env.imageName}:1.${env.BUILD_NUMBER}")
+        //                 image.push();
+        //                 def image = do
+        //                 // sh "docker build -t ${env.imageName}:1.${env.BUILD_NUMBER} ."
+        //                 // sh "docker tag ${env.imageName} ${env.imageName}:1.${env.BUILD_NUMBER}"
+        //                 // sh "docker push ${env.imageName}"
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
