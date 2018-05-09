@@ -15,10 +15,10 @@ pipeline {
             }
         }
 
-        stage("deploy") {
-            steps{
-                sshagent(['uat-server']){
-                    sh "ssh root@167.99.237.229 docker pull ${env.imageName}"
+        stage('Deploy'){
+            steps {
+                sshagent(['uat-server']) {
+                    sh "ssh core@167.99.237.229 docker pull ${env.imageName}"
                 }
             }
         }
