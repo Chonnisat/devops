@@ -27,9 +27,8 @@ pipeline {
             steps {
                 script{
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-id'){
-                        sh "docker build -t ${env.imageName}:1.${env.BUILD_NUMBER} ."
-                        sh "docker tag  ${env.imageName} ${env.imageName}:1.${env.BUILD_NUMBER}"
-                        sh "docker push ${env.imageName}"
+                        def image = docker.build("${env.imageName}:1.${env.BUILD_NUMBER}")
+                        image.push();
                     }
                 }
             }
