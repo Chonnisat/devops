@@ -19,7 +19,8 @@ pipeline {
             steps {
                 script{
                     docker.withRegistry('https://docker.io/v1', 'dockerhub-id'){
-                        def image = docker.build("tag ${env.imageName}:1.${env.BUILD_NUMBER} nootiew/${env.imageName}:1.${env.BUILD_NUMBER}")
+                        def image = docker.build("${env.imageName}:1.${env.BUILD_NUMBER}")
+                        docker.tag("${env.imageName} ${env.imageName}:1.${env.BUILD_NUMBER}")
                         image.push()
                     }
                 }
