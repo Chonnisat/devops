@@ -14,16 +14,15 @@ pipeline {
                 sh "docker --version"
             }
         }
-        stage("build image"){
-            steps {
-                sh "docker build -t ${env.imageName} ."
-                sh "docker tag ${env.imageName} ${env.imageName}:1.${env.BUILD_NUMBER}"
-            }
-        }
+
         stage("push image") {
             steps {
-                sh "docker login -u nootiew -p 17428yBR"
-                sh "docker push ${env.imageName}"
+                script{
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-id'){
+                        def image = docker.build("${env.imageName}:1.${env.BUILD_NUMBER}")
+                        image.push()
+                    }
+                }
             }
         }
     }
